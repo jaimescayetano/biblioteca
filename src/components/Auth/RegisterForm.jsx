@@ -1,14 +1,12 @@
 import { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from "../../services/firebase/firebaseConfig";
-import { IconBrandGoogleFilled } from '@tabler/icons-react';
 import Button from "../Button";
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
@@ -16,20 +14,9 @@ const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      navigate('/');
-    } catch (e) {
-      setError(e.message)
-    }
-  };
-
-  const handleGoogleLogin = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      const userCredential = await signInWithPopup(auth, provider);
-      const user = userCredential.user;
-      navigate('/');
+      navigate('/auth/login');
     } catch (e) {
       setError(e.message)
     }
@@ -37,7 +24,7 @@ const navigate = useNavigate();
 
   return (
     <>
-      <h3 className="text-[#6A6465] font-bold text-2xl mb-7">Login</h3>
+      <h3 className="text-[#6A6465] font-bold text-2xl mb-7">Sign In</h3>
       <form onSubmit={handleSubmit} className="flex flex-col w-4/5 animate-slide-out-bottom">
         <label className="text-[#6F7482]" htmlFor="email">Correo electrónico:</label>
         <input
@@ -63,12 +50,11 @@ const navigate = useNavigate();
         />
         <span className="text-red-500 text-sm text-center">{error}</span>
         <div className="flex items-center justify-center gap-3 my-6">
-          <Button type={"submit"}>Iniciar</Button>
-          <Button type={"button"} handleClick={handleGoogleLogin} fill={true} icon={<IconBrandGoogleFilled color="white" />}>Google</Button>
+          <Button type={"submit"}>Registrar</Button>
         </div>
       </form>
-      <span className="text-[#6A6465] my-3 text-sm">¿No tienes una cuenta? 
-        <Link to="/auth/register" className="font-bold">Click aquí</Link>
+      <span className="text-[#6A6465] my-3 text-sm">¿Ya tienes una cuenta? 
+        <Link to="/auth/login" className="font-bold">Click aquí</Link>
       </span>
     </>
   )

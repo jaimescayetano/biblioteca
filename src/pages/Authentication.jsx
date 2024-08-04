@@ -1,13 +1,17 @@
 import LoginForm from "../components/Auth/LoginForm"
+import RegisterForm from "../components/Auth/RegisterForm"
 import { IconBook } from '@tabler/icons-react';
+import { useParams } from "react-router-dom";
 
 const Authentication = () => {
+  const { mode } = useParams();
+
   return (
     <div className="flex w-screen h-screen">
       <div className="flex bg-white w-full items-center justify-center flex-col lg:w-[400px]">
         <IconBook size={50} stroke={1} />
         <h2 className="font-bold text-3xl">RINCÓN LITERARIO</h2>
-        <LoginForm />
+        {mode === 'login' ? <LoginForm /> : <RegisterForm />}
       </div>
       <div className="w-auth-container hidden lg:block">
         <img

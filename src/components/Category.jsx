@@ -1,4 +1,4 @@
-import { dbFirestore } from '../services/firebase/firebaseConfig';
+/*import { dbFirestore } from '../services/firebase/firebaseConfig';
 import { collection, getDocs, addDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 
@@ -24,6 +24,6 @@ const Category = () => {
 
     </div>
   )
-}
+*/
 
 export default Category
