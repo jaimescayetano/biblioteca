@@ -24,7 +24,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <h3 className="text-[#6A6465] font-bold text-2xl mb-7">Sign In</h3>
+      <h3 className="text-label-color font-bold text-2xl mb-7">Sign In</h3>
       <form onSubmit={handleSubmit} className="flex flex-col w-4/5 animate-slide-out-bottom">
         <label className="text-[#6F7482]" htmlFor="email">Correo electrónico:</label>
         <input
@@ -53,8 +53,8 @@ const LoginForm = () => {
           <Button type={"submit"}>Registrar</Button>
         </div>
       </form>
-      <span className="text-[#6A6465] my-3 text-sm">¿Ya tienes una cuenta? 
-        <Link to="/auth/login" className="font-bold">Click aquí</Link>
+      <span className="text-primary-color my-3 text-sm">¿Ya tienes una cuenta? 
+        <Link to="/auth/login" className="font-bold"> Click aquí</Link>
       </span>
     </>
   )

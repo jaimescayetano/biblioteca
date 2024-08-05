@@ -37,9 +37,9 @@ const navigate = useNavigate();
 
   return (
     <>
-      <h3 className="text-[#6A6465] font-bold text-2xl mb-7">Login</h3>
+      <h3 className="text-label-color font-bold text-2xl mb-7">Login</h3>
       <form onSubmit={handleSubmit} className="flex flex-col w-4/5 animate-slide-out-bottom">
-        <label className="text-[#6F7482]" htmlFor="email">Correo electrónico:</label>
+        <label className="text-label-color" htmlFor="email">Correo electrónico:</label>
         <input
           id="email"
           name="email"
@@ -50,7 +50,7 @@ const navigate = useNavigate();
           required
           className="py-2 px-3 rounded-md bg-[#F3F3F2] mb-6 mt-1"
         />
-        <label className="text-[#6F7482]" htmlFor="password">Contraseña:</label>
+        <label className="text-label-color" htmlFor="password">Contraseña:</label>
         <input
           id="password"
           name="password"
@@ -63,12 +63,12 @@ const navigate = useNavigate();
         />
         <span className="text-red-500 text-sm text-center">{error}</span>
         <div className="flex items-center justify-center gap-3 my-6">
-          <Button type={"submit"}>Iniciar</Button>
+          <Button type={"submit"} fill={false}>Iniciar</Button>
           <Button type={"button"} handleClick={handleGoogleLogin} fill={true} icon={<IconBrandGoogleFilled color="white" />}>Google</Button>
         </div>
       </form>
-      <span className="text-[#6A6465] my-3 text-sm">¿No tienes una cuenta? 
-        <Link to="/auth/register" className="font-bold">Click aquí</Link>
+      <span className="text-primary-color my-3 text-sm">¿No tienes una cuenta?
+        <Link to="/auth/register" className="font-bold"> Click aquí</Link>
       </span>
     </>
   )
