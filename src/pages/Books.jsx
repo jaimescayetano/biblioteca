@@ -6,6 +6,7 @@ import { Rating } from 'react-simple-star-rating'
 import CardBook from "../components/CardBook";
 import Loading from "../components/Loading";
 import LandbotChat from '../components/LandbotChat';
+import { IconRotateClockwise } from '@tabler/icons-react';
 
 const getCollection = async (setter, collectionName) => {
   const registers = [];
@@ -18,14 +19,24 @@ const getCollection = async (setter, collectionName) => {
 }
 
 const getBooks = async (setBooks, loading, filters) => {
-  const books = [];
+  let books = [];
   const booksRef = collection(db, 'books');
-
-  const { keyword } = filters;
-  const q = query(booksRef, orderBy('title'), startAt(keyword), endAt(keyword + '\uf8ff'));
-  const querySnapshot = await getDocs(q);
+  const { keyword, gender, author, rating } = filters;
+  const querySnapshot = await getDocs(booksRef);
   querySnapshot.forEach((doc) => {
     books.push(doc.data());
+  });
+
+  books = books.filter((book) => {
+    if (
+      (keyword && !book.title.toLowerCase().includes(keyword.toLowerCase())) ||
+      (parseInt(gender) !== 0 && !book.categories.includes(parseInt(gender))) ||
+      (parseInt(author) !== 0 && !book.categories.includes(parseInt(author))) ||
+      (rating != 0 && rating !== book.rating)
+    ) {
+      return false;
+    }
+    return true;
   });
   setBooks(books);
   loading(false);
@@ -38,8 +49,8 @@ const Books = () => {
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     keyword: '',
-    gender: '',
-    author: '',
+    gender: 0,
+    author: 0,
     rating: 0
   });
 
@@ -65,6 +76,15 @@ const Books = () => {
     setFilters({ ...filters, rating: rate });
   }
 
+  const handleReset = () => {
+    setFilters({
+      keyword: '',
+      gender: 0,
+      author: 0,
+      rating: 0
+    });
+  }
+
   useEffect(() => {
     setLoading(true);
     getBooks(setBooks, setLoading, filters);
@@ -77,7 +97,7 @@ const Books = () => {
         <p className="text-[#676868] mt-4 mb-6 text-sm">
           Bienvenido a nuestro catálogo de libros. Aquí encontrarás una amplia variedad de títulos que abarcan diferentes géneros y autores. Explora nuestra colección para descubrir nuevas lecturas y encontrar tus próximos libros favoritos. Utiliza los filtros y la barra de búsqueda para encontrar libros específicos o simplemente navega por las diferentes categorías. ¡Disfruta de tu viaje literario!
         </p>
-        <form className='flex justify-between gap-2 flex-wrap'>
+        <form className='flex justify-between gap-2 flex-wrap items-center'>
           <div className='flex flex-col w-[20%] mb-3'>
             <label className='py-2' htmlFor="keyword">Buscar</label>
             <input value={filters.keyword} onChange={(e) => setFilters({ ...filters, keyword: e.target.value })} className='bg-[#F3F3F2] py-2 px-3 rounded-md' id="keyword" type="text" name="keyword" />
@@ -103,6 +123,11 @@ const Books = () => {
           <div className='flex flex-col w-[20%] mb-3'>
             <label className='py-2' htmlFor="rating">Rating</label>
             <Rating onClick={handleRating} SVGclassName={'inline-block'} size={40} />
+          </div>
+          <div className='flex flex-col w-[5%] mb-3'>
+          <button onClick={handleReset} className='flex bg-zinc-950 text-white rounded-md w-10 items-center justify-center h-10' type="button">
+              <IconRotateClockwise stroke={2} />
+            </button>
           </div>
         </form>
       </div>
