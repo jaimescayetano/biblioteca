@@ -1,8 +1,3 @@
-import { db } from "../services/firebase/firebaseConfig";
-import { collection, addDoc } from 'firebase/firestore';
-
-const collectionName = 'libros';
-
 const books = [
   {
     "id": 1,
@@ -413,14 +408,4 @@ const books = [
   }
 ];
 
-
-const addBook = async (book) => {
-  try {
-    const docRef = await addDoc(collection(db, collectionName), book);
-    console.log('Save: ', docRef.id);
-  } catch (e) {
-    console.error('Error: ', e);
-  }
-};
-
-export { books, addBook };
+export default books;

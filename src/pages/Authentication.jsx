@@ -2,10 +2,10 @@ import LoginForm from "../components/Auth/LoginForm"
 import RegisterForm from "../components/Auth/RegisterForm"
 import { IconBook } from '@tabler/icons-react';
 import { useParams } from "react-router-dom";
-import { books, addBook } from "../utils/addBooks";
-
 // Only for development
-//books.map(book => addBook(book));
+import addRecords from "../utils/addRecords";
+
+//addRecords('authors');
 
 const Authentication = () => {
   const { mode } = useParams();
