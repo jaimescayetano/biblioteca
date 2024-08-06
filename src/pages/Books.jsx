@@ -74,12 +74,16 @@ const Books = () => {
           </div>
         </form>
       </div>
-      {loading ? <Loading /> : books.map(book => {
-        return <CardBook key={book.id} title={book.title} poster={book.poster} />
-      })}
+      {loading ? <Loading /> : (
+        <div className="grid xl:grid-cols-7 gap-10 justify-center justify-items-center">
+          {books.map(book => (
+            <CardBook key={book.id} title={book.title} poster={book.poster} rating={book.rating} />
+          ))}
+        </div>
+      )}
       <div>
       </div>
-      <button className="" onClick={handleLogout}>Log out</button>
+     <button className="mt-4 bg-zinc-950 text-white py-2 px-4 rounded-md" onClick={handleLogout}>Log out</button>
     </div>
   )
 }
