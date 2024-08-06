@@ -1,5 +1,5 @@
 import { getAuth, signOut } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where, orderBy, startAt, endAt } from "firebase/firestore";
 import { db } from "../services/firebase/firebaseConfig";
 import { useEffect, useState } from "react";
 import { Rating } from 'react-simple-star-rating'
@@ -7,19 +7,32 @@ import CardBook from "../components/CardBook";
 import Loading from "../components/Loading";
 import LandbotChat from '../components/LandbotChat';
 
-const getBooks = async (setBooks, loading) => {
+const getBooks = async (setBooks, loading, filters, setCategories) => {
   const books = [];
+  const booksRef = collection(db, 'libros');
+
+  const { keyword } = filters;
+  const q = query(booksRef, orderBy('title'), startAt(keyword), endAt(keyword + '\uf8ff'));
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc) => {
+    books.push(doc.data());
+  });
+
+  /*
   const querySnapshot = await getDocs(collection(db, "libros"));
   querySnapshot.forEach((doc) => {
     books.push(doc.data());
   });
-  console.log(books);
+  console.log(books)*/
+
   setBooks(books);
   loading(false);
 }
 
 const Books = () => {
   const [books, setBooks] = useState([]);
+  const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     keyword: '',
@@ -43,7 +56,7 @@ const Books = () => {
 
   useEffect(() => {
     setLoading(true);
-    getBooks(setBooks, setLoading);
+    getBooks(setBooks, setLoading, filters, setCategory);
   }, [filters]);
 
   return (
@@ -76,9 +89,10 @@ const Books = () => {
         </form>
       </div>
       {loading ? <Loading /> : (
-        <div className="grid xl:grid-cols-7 gap-10 justify-center justify-items-center">
-          {books.map(book => (
-            <CardBook key={book.id} title={book.title} poster={book.poster} rating={book.rating} />
+        /*<div className="grid xl:grid-cols-7 gap-10 justify-center justify-items-center">*/
+        <div className="flex gap-2 flex-wrap items-center justify-between">
+          {books.map((book, index) => (
+            <CardBook key={index} title={book.title} poster={book.poster} rating={book.rating} />
           ))}
         </div>
       )}
