@@ -5,16 +5,17 @@ import { useEffect, useState } from "react";
 import { Rating } from 'react-simple-star-rating'
 import CardBook from "../components/CardBook";
 import Loading from "../components/Loading";
+import LandbotChat from '../components/LandbotChat';
 
-const getBooks = async (setBooks, loadding) => {
+const getBooks = async (setBooks, loading) => {
   const books = [];
   const querySnapshot = await getDocs(collection(db, "libros"));
   querySnapshot.forEach((doc) => {
     books.push(doc.data());
   });
-  console.log(books)
+  console.log(books);
   setBooks(books);
-  loadding(false);
+  loading(false);
 }
 
 const Books = () => {
@@ -81,11 +82,10 @@ const Books = () => {
           ))}
         </div>
       )}
-      <div>
-      </div>
-     <button className="mt-4 bg-zinc-950 text-white py-2 px-4 rounded-md" onClick={handleLogout}>Log out</button>
+      <button className="mt-4 bg-zinc-950 text-white py-2 px-4 rounded-md" onClick={handleLogout}>Log out</button>
+      <LandbotChat />
     </div>
   )
 }
 
-export default Books
+export default Books;
