@@ -92,17 +92,17 @@ const Books = () => {
 
   return (
     <div className="w-[96%] m-auto py-2">
-      <div className="my-6 py-5 px-6 rounded-xl bg-white shadow-md">
+      <div className="my-2 py-5 px-6 rounded-xl bg-white shadow-md sm:my-6">
         <h2 className="text-4xl font-bold">Catalogo de libros</h2>
         <p className="text-[#676868] mt-4 mb-6 text-sm">
           Bienvenido a nuestro catálogo de libros. Aquí encontrarás una amplia variedad de títulos que abarcan diferentes géneros y autores. Explora nuestra colección para descubrir nuevas lecturas y encontrar tus próximos libros favoritos. Utiliza los filtros y la barra de búsqueda para encontrar libros específicos o simplemente navega por las diferentes categorías. ¡Disfruta de tu viaje literario!
         </p>
         <form className='flex justify-between gap-2 flex-wrap items-center'>
-          <div className='flex flex-col w-[20%] mb-3'>
+          <div className='flex flex-col w-full mb-3 lg:w-[20%] sm:w-[48%]'>
             <label className='py-2' htmlFor="keyword">Buscar</label>
             <input value={filters.keyword} onChange={(e) => setFilters({ ...filters, keyword: e.target.value })} className='bg-[#F3F3F2] py-2 px-3 rounded-md' id="keyword" type="text" name="keyword" />
           </div>
-          <div className='flex flex-col w-[20%] mb-3'>
+          <div className='flex flex-col w-[48%] mb-3 lg:w-[20%]'>
             <label className='py-2' htmlFor="gender">Género</label>
             <select value={filters.gender} onChange={(e) => setFilters({ ...filters, gender: e.target.value })} name="gender" id="gender" className='bg-[#F3F3F2] py-2 px-3 rounded-md'>
               <option value="0">Todos</option>
@@ -111,7 +111,7 @@ const Books = () => {
               })}
             </select>
           </div>
-          <div className='flex flex-col w-[20%] mb-3'>
+          <div className='flex flex-col w-[48%] mb-3 lg:w-[20%]'>
             <label className='py-2' htmlFor="author">Autores</label>
             <select value={filters.author} onChange={(e) => setFilters({ ...filters, author: e.target.value })} name="author" id="author" className='bg-[#F3F3F2] py-2 px-3 rounded-md'>
               <option value="0">Todos</option>
@@ -120,11 +120,11 @@ const Books = () => {
               })}
             </select>
           </div>
-          <div className='flex flex-col w-[20%] mb-3'>
+          <div className='flex flex-col w-[80%] mb-3 lg:w-[20%] sm:w-[48%]'>
             <label className='py-2' htmlFor="rating">Rating</label>
             <Rating onClick={handleRating} SVGclassName={'inline-block'} size={40} />
           </div>
-          <div className='flex flex-col w-[5%] mb-3'>
+          <div className='flex flex-col w-[10%] mb-3 sm:w-[5%]'>
           <button onClick={handleReset} className='flex bg-zinc-950 text-white rounded-md w-10 items-center justify-center h-10' type="button">
               <IconRotateClockwise stroke={2} />
             </button>
