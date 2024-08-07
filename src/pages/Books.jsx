@@ -135,7 +135,7 @@ const Books = () => {
         /*<div className="grid xl:grid-cols-7 gap-10 justify-center justify-items-center">*/
         <div className="flex gap-2 flex-wrap items-center justify-between">
           {books.map((book, index) => (
-            <CardBook key={index} title={book.title} poster={book.poster} rating={book.rating} />
+            <CardBook key={index} id={book.id} title={book.title} poster={book.poster} rating={book.rating} />
           ))}
         </div>
       )}

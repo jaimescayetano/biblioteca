@@ -12,7 +12,7 @@ const BookDetails = () => {
     const fetchBooks = async () => {
       try {
         console.log(`Fetching book with ID: ${id}`);
-        const querySnapshot = await getDocs(collection(db, "libros"));
+        const querySnapshot = await getDocs(collection(db, "books"));
         
         let foundBook = null;
 
@@ -65,7 +65,7 @@ const BookDetails = () => {
         <div className="ml-8 mt-24 flex flex-col justify-center">
           <h1 className="text-3xl font-semibold max-w-5xl mb-2">{book.title}</h1>
           <p className="text-gray-700 mb-4 min-w-5xl max-w-5xl ">{book.description}</p>
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <div className="flex flex-wrap gap-2 justify-left">
               {book.categories.map((category, index) => (
                 <button
@@ -76,15 +76,15 @@ const BookDetails = () => {
                 </button>
               ))}
             </div>
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <h2 className="text-xl font-medium mb-2">Autores:</h2>
             <ul className="list-disc list-inside text-gray-700">
               {book.authors.map((author, index) => (
                 <li key={index}>{author}</li>
               ))}
             </ul>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

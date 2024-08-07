@@ -3,6 +3,7 @@ import RegisterForm from "../components/Auth/RegisterForm"
 import { IconBook } from '@tabler/icons-react';
 import { useParams } from "react-router-dom";
 // Only for development
+
 import addRecords from "../utils/addRecords";
 
 //addRecords('authors');

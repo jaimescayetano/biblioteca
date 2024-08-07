@@ -5,6 +5,7 @@ import { AuthProvider } from './context/AuthContext';
 import Authentication from './pages/Authentication';
 import ProtectedRoute from './routes/ProtectedRoute';
 import Books from './pages/Books';
+import BookDetails from './pages/BookDetails';
 import './index.css'
 
 const router = createBrowserRouter([
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: '/auth/:mode',
     element: <Authentication />
+  },
+  {
+    path: '/books/:id', 
+    element: <ProtectedRoute><BookDetails /></ProtectedRoute>,
   },
 ]);
 
